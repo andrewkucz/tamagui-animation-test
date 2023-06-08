@@ -1,10 +1,12 @@
-// import { createAnimations } from '@tamagui/animations-react-native'
-import { createAnimations } from '@tamagui/animations-reanimated'
+
 import { createInterFont } from '@tamagui/font-inter'
 import { createMedia } from '@tamagui/react-native-media-driver'
 import { shorthands } from '@tamagui/shorthands'
 import { themes, tokens } from '@tamagui/themes'
 import { createTamagui } from 'tamagui'
+
+// import { createAnimations } from '@tamagui/animations-react-native'
+import { createAnimations } from '@tamagui/animations-reanimated'
 
 const animations = createAnimations({
   fast: {
@@ -26,14 +28,20 @@ const animations = createAnimations({
   },
   bouncy: {
     type: 'spring',
-    damping: 9,
+    damping: 10,
     mass: 0.9,
-    stiffness: 150,
+    stiffness: 100,
   },
   lazy: {
     type: 'spring',
-    damping: 18,
-    stiffness: 50,
+    damping: 20,
+    stiffness: 60,
+  },
+  quick: {
+    type: 'spring',
+    damping: 20,
+    mass: 1.2,
+    stiffness: 250,
   },
 })
 

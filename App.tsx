@@ -1,6 +1,6 @@
 import { useFonts } from 'expo-font'
 import { useColorScheme } from 'react-native'
-import { AnimatePresence, Button, Square, Stack, TamaguiProvider, Theme } from 'tamagui'
+import { AnimatePresence, Button, Square, Stack, TamaguiProvider, Text, Theme } from 'tamagui'
 import config from './tamagui.config'
 import { useState } from 'react'
 
@@ -25,7 +25,7 @@ function TestAnimatedComponent() {
   const [open, setOpen] = useState(true)
   return <Stack space="$4">
     <Button onPress={() => setOpen(o => !o)} pressStyle={{ bg: '$gray11' }}>
-      {`Header ${open ? 'opened' : 'closed'}`}
+      {open ? 'opened' : 'closed'}
     </Button>
     <MyComponent isVisible={open} />
   </Stack>
@@ -48,7 +48,8 @@ export default function App() {
   return (
     <TamaguiProvider config={config}>
       <Theme name={colorScheme === 'dark' ? 'dark' : 'light'}>
-        <Stack px="$5" pt="$12" backgroundColor={'$backgroundSoft'}>
+        <Stack space="$4" px="$5" pt="$12" backgroundColor={'$backgroundSoft'}>
+          <Text>@tamagui/animations-reanimated</Text>
           <TestAnimatedComponent />
         </Stack>
       </Theme>
