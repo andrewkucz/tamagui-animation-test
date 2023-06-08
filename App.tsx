@@ -1,20 +1,58 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useFonts } from 'expo-font'
+import { useColorScheme } from 'react-native'
+import { AnimatePresence, Button, Square, Stack, TamaguiProvider, Theme } from 'tamagui'
+import config from './tamagui.config'
+import { useState } from 'react'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+// copied from docs
+const MyComponent = ({ isVisible }: { isVisible: boolean }) => (
+  <AnimatePresence>
+    {isVisible && (
+      <Square
+        key="my-square"
+        animation="bouncy"
+        backgroundColor="green"
+        size={50}
+        exitStyle={{
+          size: 100,
+        }}
+      />
+    )}
+  </AnimatePresence>
+)
+
+function TestAnimatedComponent() {
+  const [open, setOpen] = useState(true)
+  return <Stack space="$4">
+    <Button onPress={() => setOpen(o => !o)} pressStyle={{ bg: '$gray11' }}>
+      {`Header ${open ? 'opened' : 'closed'}`}
+    </Button>
+    <MyComponent isVisible={open} />
+  </Stack>
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
+export default function App() {
+
+  const colorScheme = useColorScheme()
+  const [loaded] = useFonts({
+    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
+    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
+  })
+
+  if (!loaded) {
+    return null
+  }
+
+  return (
+    <TamaguiProvider config={config}>
+      <Theme name={colorScheme === 'dark' ? 'dark' : 'light'}>
+        <Stack px="$5" pt="$12" backgroundColor={'$backgroundSoft'}>
+          <TestAnimatedComponent />
+        </Stack>
+      </Theme>
+    </TamaguiProvider>
+  )
+
+}
